@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        targetNamespace="http://wordservice/"
+        xmlns:tns="http://wordservice/"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        name="WordService">
+    <types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  targetNamespace="http://wordservice/">
+            <xs:element name="getWord" type="tns:getWord"/>
+            <xs:element name="getWordResponse" type="tns:getWordResponse"/>
+            <xs:complexType name="getWord">
+                <xs:sequence>
+                    <xs:element name="arg0" type="xs:int" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getWordResponse">
+                <xs:sequence>
+                    <xs:element name="return" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </types>
+    <message name="getWord">
+        <part name="parameters" element="tns:getWord"/>
+    </message>
+    <message name="getWordResponse">
+        <part name="parameters" element="tns:getWordResponse"/>
+    </message>
+    <portType name="WordService">
+        <operation name="getWord">
+            <input message="tns:getWord"/>
+            <output message="tns:getWordResponse"/>
+        </operation>
+    </portType>
+    <binding name="WordServicePortBinding" type="tns:WordService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="getWord">
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="getWord">
+        <port name="WordServicePort" binding="tns:WordServicePortBinding">
+            <soap:address location="http://localhost:8080/
+            /getWord"/>
+        </port>
+    </service>
+</definitions>
